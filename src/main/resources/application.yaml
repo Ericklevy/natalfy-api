@@ -9,26 +9,24 @@ spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/natalfy}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:SUA_SENHA_AQUI}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      # 👇 Mudamos de "update" para "validate". Agora ele só VÊ se está certo.
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
     show-sql: true
     properties:
       hibernate:
         format_sql: true
 
-  # 👇 Ligamos o Flyway
   flyway:
-    enabled: true
-    baseline-on-migrate: true
+    enabled: false
+    locations: classpath:db/migration
 
   data:
     redis:
-      host: localhost
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
       port: 6379
 
   ai:
@@ -40,8 +38,7 @@ spring:
             model: gemini-1.5-pro
             temperature: 0.3
 
-# 🔐 Chave de Segurança para o JWT
 app:
   jwt:
-    secret: ${JWT_SECRET:ChaveSecretaMuitoLongaEComplexaParaONatalfy2026SegurancaLGPD}
-    expiration-ms: 86400000 # 24 horaS
+    secret: ${JWT_SECRET:SUA_CHAVE_SECRETA_SUPER_SEGURA_E_LONGA_AQUI_12345}
+    expiration-ms: 86400000
