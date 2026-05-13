@@ -46,12 +46,22 @@ jobs:
 
       - name: Rodar todos os Testes Automatizados (com Banco Real)
         env:
+          # Chaves de segurança do cofre do GitHub
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+          # Configurações de Conexão (IP direto para evitar conflitos de rede)
           SPRING_DATASOURCE_URL: jdbc:postgresql://127.0.0.1:5432/natalfy
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
           SPRING_DATA_REDIS_HOST: 127.0.0.1
-          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
-          SPRING_FLYWAY_ENABLED: false
+
+          # 🚀 ESTRATÉGIA DE BANCO PARA CI:
+          # Reativamos o Flyway para garantir que seus scripts SQL funcionem
+          SPRING_FLYWAY_ENABLED: true
+          # Desativamos a validação do Hibernate para ele não reclamar de tabelas ausentes
+          SPRING_JPA_HIBERNATE_DDL_AUTO: none
+          # Força o Flyway a limpar o banco se houver erro de versão anterior
+          SPRING_FLYWAY_CLEAN_ON_VALIDATION_ERROR: true
+
         run: ./mvnw clean verify -Dsurefire.useFile=false -e
