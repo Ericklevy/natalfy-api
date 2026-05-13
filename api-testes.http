@@ -1,0 +1,236 @@
+### ==========================================
+### MÓDULO 1: AUTENTICAÇÃO E SEGURANÇA
+### ==========================================
+
+### 1.1. Criar o usuário Admin (Rode apenas 1 vez)
+POST http://localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "login": "admin@natalfy.com",
+  "password": "senhaSuperSecreta123",
+  "role": "ADMIN"
+}
+
+### 1.2. Fazer Login e pegar o Token (Crachá)
+# Copie o "token" que retornar aqui e cole nas requisições abaixo!
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "login": "admin@natalfy.com",
+  "password": "senhaSuperSecreta123"
+}
+
+
+### ==========================================
+### MÓDULO 2: GESTANTES (PACIENTES)
+### ==========================================
+
+### 2.1. Cadastrar Gestante 1 (Ana)
+POST http://localhost:8080/api/v1/gestantes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Ana Clara Nova",
+  "cpf": "29684877013",
+  "dataNascimento": "1990-05-20",
+  "email": "ana.clara@email.com",
+  "telefone": "11988887777"
+}
+
+### 2.2. Cadastrar Gestante 2 (Beatriz)
+POST http://localhost:8080/api/v1/gestantes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Beatriz Souza Almeida",
+  "cpf": "12345678909",
+  "dataNascimento": "1995-08-15",
+  "email": "beatriz.souza@email.com",
+  "telefone": "61977775555"
+}
+
+### 2.3. Cadastrar Gestante 3 (Camila)
+POST http://localhost:8080/api/v1/gestantes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Camila Ribeiro",
+  "cpf": "98765432100",
+  "dataNascimento": "1992-01-30",
+  "email": "camila.rib@email.com",
+  "telefone": "61955554444"
+}
+
+### 2.4. Listar todas as Gestantes
+GET http://localhost:8080/api/v1/gestantes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+
+### ==========================================
+### MÓDULO 3: MÉDICOS
+### ==========================================
+
+### 3.1. Cadastrar Médico 1 (Obstetra)
+POST http://localhost:8080/api/v1/medicos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Dr. Carlos Eduardo",
+  "crm": "999999-SP",
+  "especialidade": "Obstetrícia",
+  "email": "carlos.novo@natalfy.com",
+  "telefone": "11977776666"
+}
+
+### 3.2. Cadastrar Médico 2 (Ultrassonografista)
+POST http://localhost:8080/api/v1/medicos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Dra. Fernanda Lima",
+  "crm": "123456-DF",
+  "especialidade": "Ultrassonografia",
+  "email": "fernanda.lima@natalfy.com",
+  "telefone": "61988882222"
+}
+
+### 3.3. Cadastrar Médico 3 (Pediatra Neonatal)
+POST http://localhost:8080/api/v1/medicos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "nome": "Dr. Roberto Alves",
+  "crm": "654321-RJ",
+  "especialidade": "Pediatria",
+  "email": "roberto.alves@natalfy.com",
+  "telefone": "21999991111"
+}
+
+### 3.4. Listar todos os Médicos
+GET http://localhost:8080/api/v1/medicos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+### ==========================================
+### MÓDULO 4: CONSULTAS (AGENDAMENTOS)
+### ==========================================
+
+### 4.1.1. Agendamento Sucesso - Dr. Carlos + Ana Clara (Sábado de manhã)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "55434eb1-8db6-4c1b-b6c7-a803f3808815",
+  "gestanteId": "cd0cba67-e0e8-4679-8192-a2b0077bf81d",
+  "dataHora": "2026-06-20T08:00:00"
+}
+
+### 4.1.2. Agendamento Sucesso - Dra. Fernanda + Beatriz (Segunda-feira)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "5844dd4e-7881-44e8-a453-b3a86cd662ed",
+  "gestanteId": "21541310-ecf5-4e82-8a69-c775a225cb6d",
+  "dataHora": "2026-06-22T09:30:00"
+}
+
+### 4.1.3. Agendamento Sucesso - Dr. Roberto + Camila (Terça-feira)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "6175ab0c-8f6d-4fde-97d7-07c4356f7073",
+  "gestanteId": "1e3b2fec-ab57-4e0c-8b59-b9bc105106b0",
+  "dataHora": "2026-06-23T10:00:00"
+}
+
+### 4.1.4. Agendamento Sucesso - Dr. Carlos + Beatriz (Quarta-feira tarde)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "55434eb1-8db6-4c1b-b6c7-a803f3808815",
+  "gestanteId": "21541310-ecf5-4e82-8a69-c775a225cb6d",
+  "dataHora": "2026-06-24T14:00:00"
+}
+
+### 4.1.5. Agendamento Sucesso - Dra. Fernanda + Camila (Quinta-feira)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "5844dd4e-7881-44e8-a453-b3a86cd662ed",
+  "gestanteId": "1e3b2fec-ab57-4e0c-8b59-b9bc105106b0",
+  "dataHora": "2026-06-25T15:30:00"
+}
+
+### 4.1.6. Agendamento Sucesso - Dr. Roberto + Ana Clara (Sexta-feira)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "6175ab0c-8f6d-4fde-97d7-07c4356f7073",
+  "gestanteId": "cd0cba67-e0e8-4679-8192-a2b0077bf81d",
+  "dataHora": "2026-06-26T16:00:00"
+}
+
+### 4.1.7. Agendamento Sucesso - Dr. Carlos + Camila (Sábado tarde)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "55434eb1-8db6-4c1b-b6c7-a803f3808815",
+  "gestanteId": "1e3b2fec-ab57-4e0c-8b59-b9bc105106b0",
+  "dataHora": "2026-06-27T17:30:00"
+}
+
+### 4.1.8. Agendamento Sucesso - Dra. Fernanda + Ana Clara (Segunda-feira final de turno)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "5844dd4e-7881-44e8-a453-b3a86cd662ed",
+  "gestanteId": "cd0cba67-e0e8-4679-8192-a2b0077bf81d",
+  "dataHora": "2026-06-22T18:00:00"
+}
+
+### 4.2. Tentar agendar num DOMINGO (Erro 422 - Validador)
+POST http://localhost:8080/api/v1/consultas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "medicoId": "55434eb1-8db6-4c1b-b6c7-a803f3808815",
+  "gestanteId": "cd0cba67-e0e8-4679-8192-a2b0077bf81d",
+  "dataHora": "2026-06-21T10:00:00"
+}
+
+### 4.3. Listar todas as Consultas Agendadas
+GET http://localhost:8080/api/v1/consultas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+### 4.4. Cancelar uma Consulta
+# ATENÇÃO: Pegue um ID de consulta retornado no passo 4.1 ou 4.3 e substitua abaixo
+PATCH http://localhost:8080/api/v1/consultas/1825022e-5a53-4c7a-a7cf-cfee2944e5ac/cancelar
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuYXRhbGZ5LWFwaSIsInN1YiI6ImFkbWluQG5hdGFsZnkuY29tIiwiZXhwIjoxNzc4NzE1ODk1fQ.pjzByqHskmitLvTnMKiLrSP-AWWI5AEuWY7guxje2Ic
+
+{
+  "motivo": "Paciente desmarcou por motivos de saúde."
+}
