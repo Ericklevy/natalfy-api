@@ -52,6 +52,6 @@ jobs:
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
           SPRING_DATA_REDIS_HOST: 127.0.0.1
-          SPRING_FLYWAY_CLEAN_DISABLED: false        # permite limpar
-          SPRING_FLYWAY_CLEAN_ON_VALIDATION_ERROR: true  # limpa e recria se der erro
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+          SPRING_FLYWAY_ENABLED: false
         run: ./mvnw clean verify -Dsurefire.useFile=false -e
