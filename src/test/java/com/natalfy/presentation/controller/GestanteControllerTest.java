@@ -8,11 +8,10 @@ import com.natalfy.application.usecase.ListarGestantesUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-// ✅ Pacotes novos do Spring Boot 4
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -23,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,12 +37,11 @@ class GestanteControllerTest {
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    private CadastrarGestanteUseCase cadastrarUseCase; // (Mudei o nome desse para não confundir)
+    private CadastrarGestanteUseCase cadastrarUseCase;
 
     @MockitoBean
-    private ListarGestantesUseCase listarUseCase; // <-- Adicionei esse aqui!
+    private ListarGestantesUseCase listarUseCase;
 
-    // 👇 ADICIONE ESTES 3 AQUI 👇
     @MockitoBean
     private com.natalfy.application.usecase.BuscarGestantePorIdUseCase buscarPorIdUseCase;
 
@@ -52,11 +51,10 @@ class GestanteControllerTest {
     @MockitoBean
     private com.natalfy.application.usecase.InativarGestanteUseCase inativarUseCase;
 
-    // 👇 Adicione estes dois mocks para o Spring Security parar de dar erro nos testes!
-    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    @MockitoBean
     private com.natalfy.infrastructure.security.TokenService tokenService;
 
-    @org.springframework.test.context.bean.override.mockito.MockitoBean
+    @MockitoBean
     private com.natalfy.domain.repository.UsuarioRepository usuarioRepository;
 
     @Test
@@ -90,9 +88,7 @@ class GestanteControllerTest {
         mockMvc.perform(post("/api/v1/gestantes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestComCpfRuim)))
-
                 .andExpect(status().isBadRequest())
-                // 👇 ADICIONE ESTAS 3 LINHAS NOVAS 👇
                 .andExpect(jsonPath("$.message").value("Erro de validação nos dados enviados."))
                 .andExpect(jsonPath("$.errors").isArray())
                 .andExpect(jsonPath("$.errors[0]").value("O CPF informado é inválido"));
@@ -107,9 +103,9 @@ class GestanteControllerTest {
 
         when(listarUseCase.executar()).thenReturn(List.of(g1));
 
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/v1/gestantes"))
+        mockMvc.perform(get("/api/v1/gestantes"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray()) // Confere se a resposta é um Array [ ]
+                .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].nome").value("Ana Paula"));
     }
 }

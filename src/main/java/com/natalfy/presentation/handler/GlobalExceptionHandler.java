@@ -40,11 +40,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleBusinessErrors(IllegalArgumentException ex) {
         ApiErrorResponse response = new ApiErrorResponse(
                 LocalDateTime.now(),
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                422,
                 ex.getMessage(),
                 List.of()
         );
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+        return ResponseEntity.unprocessableEntity().body(response);
     }
 
     // 3. ERROS DE NÃO ENCONTRADO (404)
@@ -60,10 +60,9 @@ public class GlobalExceptionHandler {
     }
 
     // 4. O CATCH-ALL (Proteção contra erros inesperados 500)
-    // Sugestão do Antigravity para cibersegurança
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleAnyOtherErrors(Exception ex) {
-        ex.printStackTrace(); // Logamos o erro real no console para o desenvolvedor
+        ex.printStackTrace();
 
         ApiErrorResponse response = new ApiErrorResponse(
                 LocalDateTime.now(),
