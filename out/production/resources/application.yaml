@@ -1,6 +1,3 @@
-server:
-  port: 8081
-
 spring:
   application:
     name: natalfy
@@ -10,16 +7,15 @@ spring:
       enabled: true
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/natalfy_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/natalfy}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:123}
+    password: ${SPRING_DATASOURCE_PASSWORD:SUA_SENHA_AQUI}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
     show-sql: true
-    open-in-view: false
     properties:
       hibernate:
         format_sql: true
@@ -39,14 +35,10 @@ spring:
         api-key: ${GEMINI_API_KEY}
         chat:
           options:
-            model: gemini-2.5-flash
+            model: gemini-3.1-pro
             temperature: 0.3
 
 app:
   jwt:
     secret: ${JWT_SECRET:SUA_CHAVE_SECRETA_SUPER_SEGURA_E_LONGA_AQUI_12345}
     expiration-ms: 86400000
-
-logging:
-  level:
-    org.springframework.security: TRACE

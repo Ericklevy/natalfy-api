@@ -47,8 +47,8 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            // Se o token for inválido, expirado ou adulterado, retorna vazio para barrar o acesso
-            return "";
+            // Se o token for inválido, expirado ou adulterado, retorna null explicitamente
+            return null;
         }
     }
 }

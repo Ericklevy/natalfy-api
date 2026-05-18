@@ -1,5 +1,6 @@
 package com.natalfy.infrastructure.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,17 +31,23 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        // ✅ 0. Desmascara os erros internos da aplicação (O Falso 403)
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+
                         // ✅ 1. Libera Login e Cadastro
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
 
-                        // ✅ 2. Libera o Swagger e a Documentação (A "Chave" para o erro 403 sumir)
+                        // ✅ 2. Libera o Swagger e a Documentação
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
-                        // ✅ 3. Regras de Perfil (Exemplo: Só ADMIN deleta)
+                        // ✅ 3. Libera explicitamente a rota da Inteligência Artificial para usuários logados
+                        .requestMatchers("/api/v1/ia/**").authenticated()
+
+                        // ✅ 4. Regras de Perfil específicas
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/gestantes/**").hasRole("ADMIN")
 
-                        // ✅ 4. Todo o resto exige estar logado
+                        // ✅ 5. Todo o resto exige estar logado
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -53,7 +60,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(); // Encriptador de senhas
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

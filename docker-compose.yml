@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # 1. O nosso Banco de Dados (Postgres)
   db:
     image: postgres:15-alpine
     container_name: natalfy-postgres
@@ -11,24 +10,32 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
     ports:
-      - "5432:5432" # Expõe a porta para você poder olhar o banco no seu DBeaver/PgAdmin
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Garante que os dados não somem se o container desligar
+      - postgres_data:/var/lib/postgresql/data
 
-  # 2. A nossa API (Spring Boot)
+  redis:
+    image: redis:7-alpine
+    container_name: natalfy-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
   api:
-    build: . # Manda o Docker ler o Dockerfile que criamos
+    build: .
     container_name: natalfy-api
     ports:
-      - "8080:8080" # A porta do seu Swagger e do .http
+      - "8081:8081"
     environment:
-      # O pulo do gato: Sobrescrevemos o application.yml para a API procurar o banco no container 'db'
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/natalfy_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=123
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_FLYWAY_ENABLED=true
+      - SPRING_DATA_REDIS_HOST=redis
     depends_on:
-      - db # Avisa que a API só pode ligar DEPOIS que o banco estiver pronto
+      - db
+      - redis
 
 volumes:
   postgres_data:

@@ -1,3 +1,5 @@
+// ListarGestantesUseCase.java
+
 package com.natalfy.application.usecase;
 
 import com.natalfy.application.dto.GestanteResponseDTO;
@@ -17,10 +19,7 @@ public class ListarGestantesUseCase {
     }
 
     public List<GestanteResponseDTO> executar() {
-        // 1. Busca todo mundo no banco de dados
-        // 2. Transforma cada "Gestante" (Modelo) em um "GestanteResponseDTO" (Bandeja)
-        // 3. Devolve a lista pronta e segura!
-        return gestanteRepository.findAll().stream()
+        return gestanteRepository.findAllByAtivoTrue().stream()
                 .map(gestante -> new GestanteResponseDTO(
                         gestante.getId(),
                         gestante.getNome(),
